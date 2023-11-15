@@ -42,7 +42,8 @@ class HideOnImage:
         if self.verbose:
             print('Images loaded: \n' + 
                   '\n'.join(self.filenames))
-        self.images = [np.array(img, dtype='uint8') for img in images]
+        self.images = [np.array(img.convert('RGB'), dtype='uint8') 
+                       for img in images]
         self.dims = [img.shape for img in self.images]
         return self.images
     
@@ -168,6 +169,8 @@ if __name__ == '__main__':
     if args.type == 'image':
         if args.finalCode is not None:
             finalCode = args.finalCode.encode()
+        else:
+            finalCode = None
         hideImage = HideOnImage(
             verbose=args.verbose,
             finalCode=finalCode
